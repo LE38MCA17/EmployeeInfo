@@ -1,17 +1,13 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:employeeinfoapplication/view/splash_view.dart';
 import 'package:employeeinfoapplication/viewmodel/employee_Info_viewmodel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'Db/database_helper.dart';
 
 Future<void> main() async {
-  HttpOverrides.global = MyHttpOverrides();
+  // HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {

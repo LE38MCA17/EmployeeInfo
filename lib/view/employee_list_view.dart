@@ -12,20 +12,16 @@ class EmployeeInfoView extends StatefulWidget {
   State<EmployeeInfoView> createState() => _EmployeeInfoViewState();
 }
 
-class _EmployeeInfoViewState extends State<EmployeeInfoView> {
+class _EmployeeInfoViewState extends State<EmployeeInfoView>  with WidgetsBindingObserver{
   late EmployeeInfoViewModel _employeeInfoViewModel;
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final viewModel = Provider.of<EmployeeInfoViewModel>(context, listen: false);
-      await viewModel.fetchAllEmployees(); // Check if DB has data
-
-      if (viewModel.employees.isEmpty) {
-        await viewModel.getEmployeesInfo(); // Fetch from API if DB is empty
-      }
+      Provider.of<EmployeeInfoViewModel>(context, listen: false).fetchAllEmployees(context);
     });
   }
 
@@ -39,8 +35,29 @@ class _EmployeeInfoViewState extends State<EmployeeInfoView> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50), // Set custom height
         child: AppBar(
-          title:  Text("Employee List",style:Styles.textEmployeeList,),
-          backgroundColor: Colors.orangeAccent,
+          title: const Text(
+            "Employee List",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: false,
+          titleSpacing: 16,
+          elevation: 8, // Adds shadow effect
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.orangeAccent, Colors.deepOrange],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
+          ),
         ),
       ),
       body: Column(
@@ -71,7 +88,12 @@ class _EmployeeInfoViewState extends State<EmployeeInfoView> {
             child: _employeeInfoViewModel.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : employees.isEmpty
-                ? const Center(child: Text("No employees found"))
+                ?  Center(
+                    child: Text(
+                      "No employees found",
+                      style: Styles.textEmployeeNodataFound,
+                    )
+                )
                 : ListView.builder(
                   itemCount: employees.length,
                   itemBuilder: (context, index) {
@@ -120,6 +142,7 @@ class _EmployeeInfoViewState extends State<EmployeeInfoView> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Remove observer
     _searchController.dispose();
     super.dispose();
   }

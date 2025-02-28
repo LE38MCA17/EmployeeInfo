@@ -1,7 +1,5 @@
-import 'package:employeeinfoapplication/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../model/employeeInfoModel.dart';
 
@@ -33,6 +31,7 @@ class EmployeeDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 20,),
             CircleAvatar(
               radius: 60,
               backgroundColor: Colors.grey[300],

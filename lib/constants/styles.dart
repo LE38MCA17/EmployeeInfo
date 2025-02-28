@@ -9,4 +9,10 @@ class Styles {
     color: ConstColors.off_white01,
   );
 
+  static TextStyle textEmployeeNodataFound = const TextStyle(
+    fontFamily: 'Poppins-Medium',
+    fontSize: 22,
+    color: Colors.black,
+  );
+
 }

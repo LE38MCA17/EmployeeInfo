@@ -13,13 +13,14 @@ class EmployeeInfoViewModel extends ChangeNotifier {
   List<EmployeeInfoModel> employees = [];
   List<EmployeeInfoModel> filteredEmployees = [];
 
-  Future<void> getEmployeesInfo() async {
+  Future<void> getEmployeesInfo(context) async {
     isLoading = true;
     notifyListeners();
     try {
-      tblEmployeeInfo.clearTable();
-      List<EmployeeInfoModel> list = await repository.getEmployeesInfo();
+      await tblEmployeeInfo.clearTable();
+      List<EmployeeInfoModel> list = await repository.getEmployeesInfo(context);
       log('+++list ${jsonEncode(list)}');
+
       if (list.isNotEmpty) {
         for (var employee in list) {
           try {
@@ -29,7 +30,7 @@ class EmployeeInfoViewModel extends ChangeNotifier {
           }
         }
       }
-      fetchAllEmployees();
+      fetchAllEmployees(context);
     } catch (e) {
       log('Error fetching employee info: $e');
     } finally {
@@ -38,12 +39,15 @@ class EmployeeInfoViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchAllEmployees() async {
+  Future<void> fetchAllEmployees(context) async {
     isLoading = true;
     notifyListeners();
 
     try {
       employees = await tblEmployeeInfo.getAllData();
+      if (employees.toString() == "[]") {
+        await getEmployeesInfo(context);
+      }
       filteredEmployees = employees;
       log('Fetched employees: ${jsonEncode(employees)}');
     } catch (e) {
