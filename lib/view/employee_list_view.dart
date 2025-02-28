@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:employeeinfoapplication/viewmodel/employee_Info_viewmodel.dart';
-
 import 'employee_details_view.dart';
 
 class EmployeeInfoView extends StatefulWidget {
@@ -54,11 +53,11 @@ class _EmployeeInfoViewState extends State<EmployeeInfoView> {
                 hintText: "Search by name or email",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                enabledBorder: OutlineInputBorder( // Default border color
+                enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orangeAccent, width: 1.5),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                focusedBorder: OutlineInputBorder( // Border color when selected
+                focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.orange, width: 2.0),
                   borderRadius: BorderRadius.circular(8),
                 ),
