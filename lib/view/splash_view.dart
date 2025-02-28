@@ -1,45 +1,63 @@
-
 import 'dart:async';
+import 'package:employeeinfoapplication/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'employee_list_view.dart';
 
 class SplashView extends StatefulWidget {
-  const SplashView({key});
+  const SplashView({Key? key}) : super(key: key);
+
   @override
   State<SplashView> createState() => _SplashViewState();
 }
 
 class _SplashViewState extends State<SplashView> {
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Timer(const Duration(milliseconds: 2810), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => const EmployeeInfoView()));
+    Future.delayed(const Duration(milliseconds: 2810), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const EmployeeInfoView()),
+        );
+      }
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
-      body: Image.network(
-        "https://picsum.photos/500",
-        fit: BoxFit.fill,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+      body: Container(
+        color: ConstColors.off_white01,
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5, // 50% of screen height
+              child: Image.asset(
+                "assets/images/checklist.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 20), // Space between image and text
+            const Text(
+              "Employee Info",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
       ),
     );
-
   }
 
+  @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
-
 }
-

@@ -26,5 +26,12 @@ class Tbl_EmployeeInfo {
     return list;
   }
 
+  Future<void> clearTable() async {
+    final db = await databaseHelper.openDatabase1();
+    await db.execute('DELETE FROM employees');
+    log('All employee records deleted');
+  }
+
+
 
 }

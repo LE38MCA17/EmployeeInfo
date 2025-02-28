@@ -5,17 +5,19 @@ import 'package:flutter/material.dart';
 import '../model/employeeInfoModel.dart';
 import '../repository/repository.dart';
 
+
 class EmployeeInfoViewModel extends ChangeNotifier {
   final Repository repository = Repository();
   bool isLoading = false;
   final Tbl_EmployeeInfo tblEmployeeInfo = Tbl_EmployeeInfo();
   List<EmployeeInfoModel> employees = [];
-
+  List<EmployeeInfoModel> filteredEmployees = [];
 
   Future<void> getEmployeesInfo() async {
     isLoading = true;
     notifyListeners();
     try {
+      tblEmployeeInfo.clearTable();
       List<EmployeeInfoModel> list = await repository.getEmployeesInfo();
       log('+++list ${jsonEncode(list)}');
       if (list.isNotEmpty) {
@@ -41,6 +43,7 @@ class EmployeeInfoViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       employees = await tblEmployeeInfo.getAllData();
+      filteredEmployees = employees;
       log('Fetched employees: ${jsonEncode(employees)}');
     } catch (e) {
       log('Error fetching employees from DB: $e');
@@ -50,4 +53,16 @@ class EmployeeInfoViewModel extends ChangeNotifier {
     }
   }
 
+  void searchEmployees(String query) {
+    if (query.isEmpty) {
+      filteredEmployees = employees;
+    } else {
+      filteredEmployees = employees
+          .where((employee) =>
+      employee.name.toLowerCase().contains(query.toLowerCase()) ||
+          employee.email.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    notifyListeners();
+  }
 }
