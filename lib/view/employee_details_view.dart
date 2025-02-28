@@ -90,8 +90,8 @@ class EmployeeDetailsPage extends StatelessWidget {
           Expanded(
             child: Text(
               "$title: ${isLink ? 'Tap to Open' : value}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: isLink ? Colors.blue : Colors.black87),
-              maxLines: 3,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: isLink ? Colors.blue : Colors.black87),
+              maxLines: 7,
               overflow: TextOverflow.ellipsis,
             ),
           ),
