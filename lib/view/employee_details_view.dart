@@ -1,5 +1,7 @@
+import 'package:employeeinfoapplication/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../model/employeeInfoModel.dart';
 
@@ -8,11 +10,17 @@ class EmployeeDetailsPage extends StatelessWidget {
 
   const EmployeeDetailsPage({Key? key, required this.employee}) : super(key: key);
 
-  void _launchURL(String url) async {
+  void _launchURL(String url, BuildContext context) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      throw 'Could not launch $url';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Could not launch $url"),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -20,10 +28,6 @@ class EmployeeDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: Text("Employee Details"),
-        backgroundColor: Colors.orangeAccent,
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -63,7 +67,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                     _infoRow(Icons.business, "Company", employee.companyName),
                     _infoRow(Icons.info, "Company Details", employee.companyDetails),
                     GestureDetector(
-                      onTap: () => _launchURL(employee.website),
+                      onTap: () => _launchURL(employee.website,context),
                       child: _infoRow(Icons.language, "Website", employee.website, isLink: true),
                     ),
                   ],

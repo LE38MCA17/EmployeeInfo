@@ -32,16 +32,16 @@ class _SplashViewState extends State<SplashView> {
         height: double.infinity,
         width: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5, // 50% of screen height
+              height: MediaQuery.of(context).size.height * 0.5,
               child: Image.asset(
                 "assets/images/checklist.png",
                 fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(height: 20), // Space between image and text
+            const SizedBox(height: 20),
             const Text(
               "Employee Info",
               style: TextStyle(

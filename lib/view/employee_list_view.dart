@@ -1,3 +1,4 @@
+import 'package:employeeinfoapplication/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -36,9 +37,12 @@ class _EmployeeInfoViewState extends State<EmployeeInfoView> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("Employee List"),
-        backgroundColor: Colors.transparent,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50), // Set custom height
+        child: AppBar(
+          title:  Text("Employee List",style:Styles.textEmployeeList,),
+          backgroundColor: Colors.orangeAccent,
+        ),
       ),
       body: Column(
         children: [
@@ -50,6 +54,14 @@ class _EmployeeInfoViewState extends State<EmployeeInfoView> {
                 hintText: "Search by name or email",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                enabledBorder: OutlineInputBorder( // Default border color
+                  borderSide: BorderSide(color: Colors.orangeAccent, width: 1.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder( // Border color when selected
+                  borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
               onChanged: (query) {
                 _employeeInfoViewModel.searchEmployees(query);

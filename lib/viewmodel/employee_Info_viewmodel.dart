@@ -41,6 +41,7 @@ class EmployeeInfoViewModel extends ChangeNotifier {
   Future<void> fetchAllEmployees() async {
     isLoading = true;
     notifyListeners();
+
     try {
       employees = await tblEmployeeInfo.getAllData();
       filteredEmployees = employees;

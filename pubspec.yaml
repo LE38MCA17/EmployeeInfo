@@ -43,6 +43,7 @@ dependencies:
   path:
   cached_network_image:
   url_launcher:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
